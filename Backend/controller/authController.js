@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import User from "../model/userSchema.js";
 import cloudinary from "../config/cloudinary.js";
 import validator from "validator";
+import { generateToken } from "../config/jwt.js";
 
 export const signUp = async (req, res) => {
   try {
@@ -33,6 +34,15 @@ export const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       imageUrl,
+    });
+
+    const jwtToken = await generateToken(user._id);
+
+    res.cookie("token", jwtToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(201).json({
