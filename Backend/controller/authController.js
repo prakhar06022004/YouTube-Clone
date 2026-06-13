@@ -15,9 +15,9 @@ export const signUp = async (req, res) => {
     if (!validator.isStrongPassword(password)) {
       return res.status(400).json({ message: "Password should be strong" });
     }
-    const userSignup = await User.findOne({ email });
+    const existingUser = await User.findOne({ email });
 
-    if (userSignup) {
+    if (existingUser) {
       return res.status(400).json({
         message: "User already exists",
       });
@@ -54,5 +54,33 @@ export const signUp = async (req, res) => {
       message: "Sign up failed",
       error: error.message,
     });
+  }
+};
+
+export const logIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const loginUser = await User.findOne({ email });
+    if (!loginUser) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    const comparePassword = await bcrypt.compare(password, loginUser.password);
+    if (!comparePassword) {
+      return res.status(400).json({ message: "Incorrect password" });
+    }
+    const jwtToken = await generateToken(loginUser._id);
+
+    res.cookie("token", jwtToken, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ message: "Login successfully", loginUser });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Login failed", error: error.message });
   }
 };
