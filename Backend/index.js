@@ -7,12 +7,11 @@ const app = express();
 
 dotenv.config();
 
+app.use(express.json());
+
 app.use("/api/user", userRouter);
 
 const PORT = process.env.PORT || 5000;
-app.get("/", (req, res) => {
-  res.send("Hello from serverr");
-});
 
 connectDB()
   .then(() => {
