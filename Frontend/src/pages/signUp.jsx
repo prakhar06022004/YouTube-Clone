@@ -8,11 +8,21 @@ import { useRef } from "react";
 import axios from "axios";
 function Signup() {
   const [show, setShow] = useState(false);
+
   const [showConfirm, setShowConfirm] = useState(false);
+
   const [step, setStep] = useState(1);
+
   const [preview, setPreview] = useState("./emptyImage.png");
 
+  const [error, setError] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
   const inputRef = useRef(null);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -50,10 +60,25 @@ function Signup() {
       data.append("password", formData.password);
       data.append("image", formData.image);
 
-      const res = await axios.post("http://localhost:8000/api/user/signup", data);
+      const res = await axios.post(
+        "http://localhost:8000/api/user/signup",
+        data,
+      );
       console.log(res?.data);
     } catch (error) {
-      console.log(error.response?.data?.message);
+      setStep(1);
+      const { field, message } = error.response?.data;
+      setError((prev) => ({
+        ...prev,
+        [field]: message,
+      }));
+      setTimeout(() => {
+        setError((prev) => ({
+          ...prev,
+          [field]: "",
+        }));
+      }, 5000);
+      console.log(error.response?.data);
     }
   };
   return (
@@ -102,6 +127,9 @@ function Signup() {
                   })
                 }
               />
+              {error?.username && (
+                <p className="text-red-600">{error?.username}</p>
+              )}
             </div>
 
             {/* Email */}
@@ -111,7 +139,7 @@ function Signup() {
               </label>
 
               <input
-                type="email"
+                type="text"
                 placeholder="you@example.com"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xl outline-none focus:border-black"
                 onChange={(e) =>
@@ -121,6 +149,7 @@ function Signup() {
                   })
                 }
               />
+              {error?.email && <p className="text-red-600">{error?.email}</p>}
             </div>
 
             {/* Password */}
@@ -148,6 +177,9 @@ function Signup() {
                   {show ? <IoMdEyeOff size={20} /> : <FaEye size={20} />}
                 </button>
               </div>
+              {error?.password && (
+                <p className="text-red-600">{error?.password}</p>
+              )}
             </div>
 
             {/* Confirm Password */}
@@ -177,7 +209,8 @@ function Signup() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full border bg-[#ff0000] text-white border-gray-300 rounded-xl p-2 text-2xl font-medium hover:bg-[#e1012e] duration-200 transition cursor-pointer">
+              className="w-full border bg-[#ff0000] text-white border-gray-300 rounded-xl p-2 text-2xl font-medium hover:bg-[#e1012e] duration-200 transition cursor-pointer"
+            >
               Create Account
             </button>
           </form>
