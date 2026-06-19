@@ -3,11 +3,13 @@ import { FaArrowLeft, FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
 import { FaYoutube } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-
+import { ClipLoader } from "react-spinners";
 import { useRef } from "react";
 import axios from "axios";
 function Signup() {
   const [show, setShow] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -85,7 +87,7 @@ function Signup() {
       data.append("email", formData.email);
       data.append("password", formData.password);
       data.append("image", formData.image);
-
+      setLoading(true);
       const res = await axios.post(
         "http://localhost:8000/api/user/signup",
         data,
@@ -100,6 +102,8 @@ function Signup() {
       }));
 
       console.log(error.response?.data);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -328,9 +332,14 @@ function Signup() {
             />
             <button
               type="submit"
-              className="w-full bg-[#FF0033] text-white py-3 rounded-xl text-xl font-medium hover:opacity-90 duration-200 cursor-pointer mt-5 hover:bg-[#d6002b]"
+              disabled={loading}
+              className="w-full bg-[#FF0033] text-white py-3 rounded-xl text-xl font-medium mt-5 flex justify-center items-center"
             >
-              Complete Setup
+              {loading ? (
+                <ClipLoader size={25} color="#fff" />
+              ) : (
+                "Complete Setup"
+              )}
             </button>
           </form>
         </div>

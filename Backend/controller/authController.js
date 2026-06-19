@@ -9,25 +9,31 @@ export const signUp = async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!validator.isEmail(email)) {
-      return res.status(400).json({ message: "Invalid email" });
+      return res.status(400).json({ message: "Invalid email", field: "email" });
     }
 
-    if (!validator.isStrongPassword(password)) {
-      return res.status(400).json({ message: "Password should be strong" });
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ message: "Minimum 8 characters required", field: "password" });
     }
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       return res.status(400).json({
         message: "User already exists",
+        field: "email",
       });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const result = await cloudinary.uploader.upload(req.file.path);
+    let imageUrl = "";
 
-    const imageUrl = result.secure_url;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      imageUrl = result.secure_url;
+    }
 
     const user = await User.create({
       username,
