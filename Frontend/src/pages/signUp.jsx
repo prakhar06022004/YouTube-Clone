@@ -15,10 +15,13 @@ function Signup() {
 
   const [preview, setPreview] = useState("./emptyImage.png");
 
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [error, setError] = useState({
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const inputRef = useRef(null);
@@ -33,9 +36,32 @@ function Signup() {
   const handleStep1 = (e) => {
     e.preventDefault();
 
+    if (!formData.email.trim()) {
+      setError((prev) => ({
+        ...prev,
+        email: "Email cannot be empty",
+      }));
+      return;
+    }
+
+    if (!formData.password.trim()) {
+      setError((prev) => ({
+        ...prev,
+        password: "Password cannot be empty",
+      }));
+      return;
+    }
+
+    if (formData.password !== confirmPassword) {
+      setError((prev) => ({
+        ...prev,
+        confirmPassword: "Password are not matching",
+        password: "Password are not matching",
+      }));
+      return;
+    }
     setStep(2);
   };
-
   const handleImgClick = () => {
     inputRef.current.click();
   };
@@ -72,12 +98,7 @@ function Signup() {
         ...prev,
         [field]: message,
       }));
-      setTimeout(() => {
-        setError((prev) => ({
-          ...prev,
-          [field]: "",
-        }));
-      }, 5000);
+
       console.log(error.response?.data);
     }
   };
@@ -120,12 +141,17 @@ function Signup() {
                 type="text"
                 placeholder="e.g. coolcreator99"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xl outline-none focus:border-black"
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
                     ...formData,
                     username: e.target.value,
-                  })
-                }
+                  });
+
+                  setError((prev) => ({
+                    ...prev,
+                    username: "",
+                  }));
+                }}
               />
               {error?.username && (
                 <p className="text-red-600">{error?.username}</p>
@@ -139,17 +165,22 @@ function Signup() {
               </label>
 
               <input
-                type="text"
+                type="email"
                 placeholder="you@example.com"
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-xl outline-none focus:border-black"
-                onChange={(e) =>
+                onChange={(e) => {
                   setFormData({
                     ...formData,
                     email: e.target.value,
-                  })
-                }
+                  });
+                  setError((prev) => ({
+                    ...prev,
+                    email: "",
+                  }));
+                }}
               />
               {error?.email && <p className="text-red-600">{error?.email}</p>}
+              {setFormData?.email}
             </div>
 
             {/* Password */}
@@ -161,12 +192,16 @@ function Signup() {
                   type={show ? "text" : "password"}
                   placeholder="At least 8 characters"
                   className="w-full px-3 py-2 text-xl outline-none focus:border-black"
-                  onChange={(e) =>
+                  onChange={(e) => {
                     setFormData({
                       ...formData,
                       password: e.target.value,
-                    })
-                  }
+                    });
+                    setError((prev) => ({
+                      ...prev,
+                      password: "",
+                    }));
+                  }}
                 />
 
                 <button
@@ -194,6 +229,13 @@ function Signup() {
                     type={showConfirm ? "text" : "password"}
                     placeholder="Re-enter your password"
                     className="w-full px-3 py-2 text-xl outline-none focus:border-black"
+                    onChange={(e) => {
+                      (setConfirmPassword(e.target.value),
+                        setError((prev) => ({
+                          ...prev,
+                          confirmPassword: "",
+                        })));
+                    }}
                   />
                 </div>
                 <button
@@ -204,6 +246,9 @@ function Signup() {
                   {showConfirm ? <IoMdEyeOff size={20} /> : <FaEye size={20} />}
                 </button>
               </div>
+              {error?.confirmPassword && (
+                <p className="text-red-600">{error?.confirmPassword}</p>
+              )}
             </div>
 
             {/* Submit Button */}
