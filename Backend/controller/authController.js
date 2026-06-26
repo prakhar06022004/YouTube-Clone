@@ -68,12 +68,17 @@ export const logIn = async (req, res) => {
     const { email, password } = req.body;
     const loginUser = await User.findOne({ email });
     if (!loginUser) {
-      return res.status(400).json({ message: "User not found" });
+      return res
+        .status(400)
+        .json({ message: "User not found", field: "password" });
     }
     const comparePassword = await bcrypt.compare(password, loginUser.password);
     if (!comparePassword) {
-      return res.status(400).json({ message: "Incorrect password" });
+      return res
+        .status(400)
+        .json({ message: "Incorrect password", field: "password" });
     }
+
     const jwtToken = await generateToken(loginUser._id);
 
     res.cookie("token", jwtToken, {
