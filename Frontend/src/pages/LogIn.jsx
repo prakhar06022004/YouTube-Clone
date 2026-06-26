@@ -18,7 +18,6 @@ const LogIn = () => {
   });
 
   const [error, setError] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -50,9 +49,9 @@ const LogIn = () => {
         email: formData.email,
         password: formData.password,
       });
-      console.log("Before");
+
       navigate("/");
-      console.log("After");
+
       console.log(res?.data);
     } catch (error) {
       const { field, message } = error.response?.data;
@@ -71,7 +70,10 @@ const LogIn = () => {
       <div className="w-full max-w-130 bg-white shadow-[0_0_20px_rgba(0,0,0,0.1)]  rounded-2xl px-10 py-5">
         <div className="flex items-center justify-between">
           {/* Back Button */}
-          <button className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition">
+          <button
+            className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition"
+            onClick={() => navigate("/signup")}
+          >
             <FaArrowLeft />
             <span className="text-lg">Back</span>
           </button>
