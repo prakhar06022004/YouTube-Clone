@@ -6,6 +6,8 @@ import { FaPlus } from "react-icons/fa6";
 import { ClipLoader } from "react-spinners";
 import { useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function Signup() {
   const [show, setShow] = useState(false);
 
@@ -18,6 +20,8 @@ function Signup() {
   const [preview, setPreview] = useState("./emptyImage.png");
 
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const [error, setError] = useState({
     username: "",
@@ -91,7 +95,9 @@ function Signup() {
       const res = await axios.post(
         "http://localhost:8000/api/user/signup",
         data,
+        { withCredentials: true },
       );
+      navigate("/");
       console.log(res?.data);
     } catch (error) {
       setStep(1);
@@ -134,7 +140,6 @@ function Signup() {
               Create your account to get started
             </p>
           </div>
-
           {/* Form */}
           <form className="mt-10 space-y-6" onSubmit={handleStep1}>
             {/* Username */}
@@ -263,6 +268,15 @@ function Signup() {
               Create Account
             </button>
           </form>
+          <p className="mt-6 text-center text-gray-600">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="text-[#FF0033] font-semibold cursor-pointer hover:underline"
+            >
+              Login
+            </span>
+          </p>{" "}
         </div>
       )}
       {step === 2 && (
@@ -281,7 +295,6 @@ function Signup() {
               Step 2 of 2
             </span>
           </div>
-
           {/* Title */}
           <div className="text-center mt-8">
             <h2 className="text-3xl font-bold">Customize Your Channel</h2>
@@ -289,7 +302,6 @@ function Signup() {
               Add a profile picture and tell people about yourself.
             </p>
           </div>
-
           {/* Profile Upload */}
           <div className="flex flex-col items-center mt-10">
             <div
@@ -320,7 +332,6 @@ function Signup() {
               JPG, PNG or WEBP • Max 5MB
             </p>
           </div>
-
           {/* Hidden Input */}
           <form className="" onSubmit={handleSubmit}>
             <input

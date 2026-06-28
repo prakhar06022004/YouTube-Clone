@@ -45,10 +45,14 @@ const LogIn = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:8000/api/user/login", {
-        email: formData.email,
-        password: formData.password,
-      });
+      const res = await axios.post(
+        "http://localhost:8000/api/user/login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+        { withCredentials: true },
+      );
 
       navigate("/");
 
@@ -137,7 +141,6 @@ const LogIn = () => {
                   }));
                 }}
               />
-
               <button
                 type="button"
                 className="z-100 absolute right-0 top-0 h-full px-6 border-gray-300 bg-white cursor-pointer"
