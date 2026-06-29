@@ -8,20 +8,14 @@ import { MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdSaveAlt } from "react-icons/md";
 import { SlLike } from "react-icons/sl";
 
-const Sidebar = () => {
+const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const [active, setActive] = useState("Home");
-  const [showSideBar, setShowSidebar] = useState(true);
   return (
-    <div className="rounded w-60 flex flex-col gap-5 border-r border-b border-gray-600">
-      {/* <div className="flex gap-6">
-        <IoMenu color="white" size={28} />
-        <div className="flex items-center gap-1">
-          <img src={"/youtube.png"} alt="YTlogo" className="w-8 h-8" />
-
-          <h1 className="text-2xl font-medium text-white">Youtube</h1>
-        </div>
-      </div> */}
-
+    <div
+      className={`fixed top-12 left-0 h-screen w-60 bg-black
+  transition-all duration-300 rounded flex flex-col gap-5 border-r border-b border-gray-600  ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}
+    >
+      
       <div className="py-5 flex flex-col gap-5">
         <div
           className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 ${active === "Home" ? "bg-gray-700" : ""}`}
@@ -48,7 +42,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5 py-4">
+      <div className="flex flex-col gap-4 py-4">
         <p className="text-white pl-5">You</p>
 
         <div
