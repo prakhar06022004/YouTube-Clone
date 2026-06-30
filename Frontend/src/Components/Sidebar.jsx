@@ -13,7 +13,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const [active, setActive] = useState("Home");
   return (
     <div
-      className={`min-h-screen bg-black border-r border-b border-gray-700 overflow-hidden transition-all duration-300 ${
+      className={`min-h-screen bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
         showSidebar ? "w-50" : "w-0"
       }`}
     >
