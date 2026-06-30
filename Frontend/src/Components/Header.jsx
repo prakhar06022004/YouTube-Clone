@@ -1,54 +1,106 @@
-import React from "react";
-import { IoMenu } from "react-icons/io5";
-import { useNavigate } from "react-router";
-import { IoSearch } from "react-icons/io5";
+import React, { useState } from "react";
+import { IoMenu, IoSearch } from "react-icons/io5";
 import { IoMdMic } from "react-icons/io";
+import { IoArrowBack } from "react-icons/io5";
+import { useNavigate } from "react-router";
 
 const Header = ({ setShowSidebar }) => {
+  const [active, setActive] = useState(false);
   const navigate = useNavigate();
-  return (
-    <div className="flex justify-between p-4 items-center">
-      <div className="flex items-center gap-2">
-        <IoMenu
-          color="white"
-          size={28}
-          onClick={() => setShowSidebar((prev) => !prev)}
-          className="cursor-pointer"
-        />
-        <div
-          className="flex items-center gap-1 cursor-pointer select-none"
-          onClick={() => navigate("/")}
-        >
-          <img src={"/youtube.png"} alt="YTlogo" className="w-8 h-8" />
 
-          <h1 className="text-2xl font-medium text-white">Youtube</h1>
+  return (
+    <>
+     {/* Header */}
+      <div className="hidden md:flex justify-between items-center p-4">
+        <div className="flex items-center gap-2">
+          <IoMenu
+            color="white"
+            size={28}
+            className="cursor-pointer"
+            onClick={() => setShowSidebar((prev) => !prev)}
+          />
+
+          <div
+            className="flex items-center gap-1 cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            <img src="/youtube.png" className="w-8 h-8" />
+            <h1 className="text-white text-2xl">Youtube</h1>
+          </div>
         </div>
-      </div>
-      <div className="flex">
-        <div className="hidden md:flex justify-center items-center w-125 h-10 bg-[#121212] border border-gray-800/40 rounded-full overflow-hidden">
-          <div className="w-115">
+
+        <div className="flex">
+          <div className="flex w-125 h-10 border border-gray-700 rounded-full overflow-hidden">
             <input
               type="search"
               placeholder="Search"
-              className="text-white w-full outline-none pl-5"
+              className="flex-1 bg-[#121212] text-white px-4 outline-none"
             />
+
+            <div className="w-16 bg-[#222222] flex justify-center items-center cursor-pointer">
+              <IoSearch color="white" size={22} />
+            </div>
           </div>
-          <div className="w-16 h-full bg-[#222222] flex justify-center items-center cursor-pointer">
-            <IoSearch color="white" size={25} />
+
+          <div className="ml-3 h-10 w-10 rounded-full bg-[#222222] flex justify-center items-center">
+            <IoMdMic color="white" size={22} />
           </div>
         </div>
 
-        <div className="hidden md:flex items-center justify-center h-10 w-11 rounded-full bg-[#222222] ml-2">
-          <IoMdMic color="white" size={25} className="w-full" />
-        </div>
+        <img src="/emptyImage.png" className="w-10 h-10 rounded-full" />
       </div>
-      <div className="flex items-center justify-center">
-        <div className="md:hidden w-16 h-full flex justify-center items-center cursor-pointer">
-          <IoSearch color="white" size={25} />
+
+{/* Mobile header */}
+      {!active ? (
+        <div className="md:hidden flex justify-between items-center p-4">
+          <div className="flex items-center gap-2">
+            <IoMenu
+              color="white"
+              size={28}
+              onClick={() => setShowSidebar((prev) => !prev)}
+            />
+
+            <img
+              src="/youtube.png"
+              className="w-8 h-8 cursor-pointer"
+              onClick={() => navigate("/")}
+            />
+          </div>
+
+          <div className="flex items-center gap-4">
+            <IoSearch
+              color="white"
+              size={24}
+              className="cursor-pointer"
+              onClick={() => setActive(true)}
+            />
+
+            <img src="/emptyImage.png" className="w-9 h-9 rounded-full" />
+          </div>
         </div>
-        <img src={"/emptyImage.png"} className="text-white w-10 h-10 rounded-full"/>
-      </div>
-    </div>
+      ) : (
+        <div className="md:hidden flex items-center gap-3 p-4">
+          <IoArrowBack
+            color="white"
+            size={25}
+            className="cursor-pointer"
+            onClick={() => setActive(false)}
+          />
+
+          <div className="flex flex-1 h-10 border border-gray-700 rounded-full overflow-hidden">
+            <input
+              type="search"
+              placeholder="Search"
+              className="flex-1 bg-[#121212] text-white px-4 outline-none"
+            />
+
+            <div className="w-14 bg-[#222222] flex justify-center items-center">
+              <IoSearch color="white" size={20} />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

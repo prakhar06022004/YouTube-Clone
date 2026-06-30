@@ -14,11 +14,11 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   return (
     <div
       className={`min-h-screen bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
-        showSidebar ? "w-50" : "w-0"
+        showSidebar ? "md:w-50" : "w-0"
       }`}
     >
       <div
-        className={`w-50 transition-transform duration-300 ${
+        className={`md:w-50 transition-transform duration-300 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -30,7 +30,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Home")}
           >
             <FaHome size={25} color="white" />
-            <p className={`text-white text-md`}>Home</p>
+            <p className={`text-white text-md hidden md:flex`}>Home</p>
           </div>
 
           <div
@@ -38,7 +38,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Shorts")}
           >
             <SiYoutubeshorts size={25} color="white" />
-            <p className="text-white text-md">Shorts</p>
+            <p className="text-white text-md hidden md:flex">Shorts</p>
           </div>
 
           <div
@@ -46,7 +46,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Subscription")}
           >
             <MdOutlineSubscriptions size={25} color="white" />
-            <p className="text-white text-md">Subscription</p>
+            <p className="text-white text-md hidden md:flex">Subscription</p>
           </div>
         </div>
 
@@ -61,7 +61,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("History")}
           >
             <RiHistoryFill size={25} />{" "}
-            <p className="text-md px-2 py-1">History</p>
+            <p className="text-md px-2 py-1 hidden md:flex">History</p>
           </div>
 
           <div
@@ -69,7 +69,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Playlists")}
           >
             <MdOutlinePlaylistPlay size={25} />
-            <p className="text-md px-2 py-1">Playlists</p>
+            <p className="text-md px-2 py-1 hidden md:flex">Playlists</p>
           </div>
 
           <div
@@ -77,7 +77,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Save videos")}
           >
             <MdSaveAlt size={25} />{" "}
-            <p className="text-md px-2 py-1">Save videos</p>
+            <p className="text-md px-2 py-1 hidden md:flex">Save videos</p>
           </div>
 
           <div
@@ -85,7 +85,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             onClick={() => setActive("Liked videos")}
           >
             <SlLike size={25} />{" "}
-            <p className="text-md px-2 py-1">Liked videos</p>
+            <p className="text-md px-2 py-1 hidden md:flex">Liked videos</p>
           </div>
         </div>
       </div>
