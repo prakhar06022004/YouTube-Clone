@@ -12,7 +12,7 @@ const Home = () => {
         <Header setShowSidebar={setShowSidebar} />
       </div>
 
-      <div className="flex">
+      <div className="flex py-30">
         <Sidebar setShowSidebar={setShowSidebar} showSidebar={showSidebar} />
 
         <div className="flex-1 p-4">

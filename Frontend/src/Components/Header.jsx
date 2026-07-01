@@ -3,14 +3,15 @@ import { IoMenu, IoSearch } from "react-icons/io5";
 import { IoMdMic } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
+import HeaderButtons from "./HeaderButtons";
 
 const Header = ({ setShowSidebar }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <>
-     {/* Header */}
+    <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
+      {/* Header */}
       <div className="hidden md:flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
           <IoMenu
@@ -50,7 +51,7 @@ const Header = ({ setShowSidebar }) => {
         <img src="/emptyImage.png" className="w-10 h-10 rounded-full" />
       </div>
 
-{/* Mobile header */}
+      {/* Mobile header */}
       {!active ? (
         <div className="md:hidden flex justify-between items-center p-4">
           <div className="flex items-center gap-2">
@@ -100,7 +101,8 @@ const Header = ({ setShowSidebar }) => {
           </div>
         </div>
       )}
-    </>
+      <HeaderButtons />
+    </div>
   );
 };
 

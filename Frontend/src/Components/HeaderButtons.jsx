@@ -1,0 +1,40 @@
+import React from "react";
+
+const HeaderButtons = () => {
+  const headerButtons = [
+    "All",
+    "Gaming",
+    "Music",
+    "Movies",
+    "TV Shows",
+    "News",
+    "Trending",
+    "Entertainment",
+    "Education",
+    "Science & Tech",
+    "Travel",
+    "Fashion",
+    "Cooking",
+    "Sports",
+    "Pets",
+    "Art",
+    "Comedy",
+    "Vlogs",
+  ];
+  return (
+    <div className="w-full text-white whitespace-nowrap overflow-x-auto scrollbar-hide">
+      <div className="flex gap-3 px-2 py-2 w-max">
+        {headerButtons.map((btn, i) => (
+          <div
+            className="text-white bg-[#272727] px-2 py-1 rounded-lg cursor-pointer shrink-0"
+            key={i}
+          >
+            {btn}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default HeaderButtons;
