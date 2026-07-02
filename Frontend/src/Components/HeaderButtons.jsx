@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const HeaderButtons = () => {
+  const [active, setActive] = useState("All");
   const headerButtons = [
     "All",
     "Gaming",
@@ -26,8 +27,9 @@ const HeaderButtons = () => {
       <div className="flex gap-3 px-2 py-2 w-max">
         {headerButtons.map((btn, i) => (
           <div
-            className="text-white bg-[#272727] px-2 py-1 rounded-lg cursor-pointer shrink-0"
+            className={` px-2 py-1 rounded-lg cursor-pointer shrink-0 text-md ${active === btn ? "bg-white text-gray-950" : "bg-[#272727] text-white"}`}
             key={i}
+            onClick={() => setActive(btn)}
           >
             {btn}
           </div>

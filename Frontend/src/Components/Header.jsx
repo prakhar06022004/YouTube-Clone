@@ -5,7 +5,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import HeaderButtons from "./HeaderButtons";
 
-const Header = ({ setShowSidebar }) => {
+const Header = ({ setShowSidebar, setSearch, search }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
@@ -36,6 +36,8 @@ const Header = ({ setShowSidebar }) => {
               type="search"
               placeholder="Search"
               className="flex-1 bg-[#121212] text-white px-4 outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
 
             <div className="w-16 bg-[#222222] flex justify-center items-center cursor-pointer">

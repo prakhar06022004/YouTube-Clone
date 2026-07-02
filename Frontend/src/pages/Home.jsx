@@ -5,11 +5,16 @@ import Header from "../Components/Header";
 
 const Home = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-black">
       <div>
-        <Header setShowSidebar={setShowSidebar} />
+        <Header
+          setShowSidebar={setShowSidebar}
+          search={search}
+          setSearch={setSearch}
+        />
       </div>
 
       <div className="flex py-30">
