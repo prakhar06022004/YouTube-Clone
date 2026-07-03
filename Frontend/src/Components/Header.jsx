@@ -1,13 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMenu, IoSearch } from "react-icons/io5";
 import { IoMdMic } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import HeaderButtons from "./HeaderButtons";
+import axios from "axios";
 
 const Header = ({ setShowSidebar, setSearch, search }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+
+  const getMe = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/api/user/me", {
+        withCredentials: true,
+      });
+      console.log(res?.data);
+      setUserData(res?.data?.user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getMe();
+  }, []);
 
   return (
     <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
@@ -49,8 +66,9 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
             <IoMdMic color="white" size={22} />
           </div>
         </div>
-
-        <img src="/emptyImage.png" className="w-10 h-10 rounded-full" />
+        <div className=" flex items-center justify-center w-10 h-10 rounded-full bg-white">
+          {userData && userData?.username?.slice(0, 1).toUpperCase()}
+        </div>
       </div>
 
       {/* Mobile header */}
