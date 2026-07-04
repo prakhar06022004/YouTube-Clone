@@ -69,7 +69,7 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
         </div>
 
         <div
-          className="flex items-center justify-center w-12 h-12 rounded-full bg-white"
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-white cursor-pointer"
           onClick={() => setShowLogoutPopup((prev) => !prev)}
         >
           {userData?.imageUrl ? (
@@ -116,13 +116,15 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
               onClick={() => setActive(true)}
             />
             <div
-              className="w-11 h-11 rounded-full bg-white"
+              className="w-11 h-11 rounded-full bg-white cursor-pointer"
               onClick={() => setShowLogoutPopup((prev) => !prev)}
             >
               {userData?.imageUrl ? (
-                <img src={userData?.imageUrl} />
+                <img src={userData?.imageUrl} className="rounded-full" />
               ) : userData?.username ? (
-                <p className="text-white">{userData?.username.slice(0, 1)}</p>
+                <p className="text-white rounded-full">
+                  {userData?.username.slice(0, 1)}
+                </p>
               ) : (
                 <img
                   src="/emptyImage.png"
@@ -156,7 +158,12 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
         </div>
       )}
       <HeaderButtons />
-      <LogOut showLogoutPopup={showLogoutPopup} userData={userData} />
+      <LogOut
+        showLogoutPopup={showLogoutPopup}
+        userData={userData}
+        setUserData={setUserData}
+        setShowLogoutPopup={setShowLogoutPopup}
+      />
     </div>
   );
 };

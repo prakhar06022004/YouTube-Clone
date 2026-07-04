@@ -5,7 +5,6 @@ import { FaYoutube } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const LogIn = () => {
-  console.log("LOGIN COMPONENT LOADED");
   const [show, setShow] = useState(false);
 
   const [loading, setLoading] = useState(false);
