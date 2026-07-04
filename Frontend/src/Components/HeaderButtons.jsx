@@ -23,7 +23,7 @@ const HeaderButtons = () => {
     "Vlogs",
   ];
   return (
-    <div className="w-full text-white whitespace-nowrap overflow-x-auto scrollbar-hide">
+    <div className="w-full text-white whitespace-nowrap overflow-x-auto hide-scrollbar">
       <div className="flex gap-3 px-2 py-2 w-max">
         {headerButtons.map((btn, i) => (
           <div
