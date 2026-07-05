@@ -27,7 +27,7 @@ const HeaderButtons = () => {
       <div className="flex gap-3 px-2 py-2 w-max">
         {headerButtons.map((btn, i) => (
           <div
-            className={` px-2 py-1 rounded-lg cursor-pointer shrink-0 text-md ${active === btn ? "bg-white text-gray-950" : "bg-[#272727] text-white"}`}
+            className={`px-2 py-1 rounded-lg cursor-pointer shrink-0 text-md ${active === btn ? "bg-white text-gray-950" : "bg-[#272727] text-white"}`}
             key={i}
             onClick={() => setActive(btn)}
           >

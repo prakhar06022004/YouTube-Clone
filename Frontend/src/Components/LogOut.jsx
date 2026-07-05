@@ -31,7 +31,7 @@ const LogOut = ({
       {userData && showLogoutPopup && (
         <div className="relative">
           <div className="flex justify-center px-2 py-5 bg-black text-white w-50 h-fit absolute right-0 top-0 z-99">
-            <span className="absolute top-8 right-5">
+            <span className="absolute top-8 right-5 cursor-pointer">
               <RxCross2 size={22} onClick={() => setShowLogoutPopup(false)} />
             </span>
             <div className="bg-[#212121] w-full rounded-xl shadow-lg shadow-black/50 border border-white/10 overflow-hidden py-3">

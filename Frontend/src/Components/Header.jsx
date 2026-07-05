@@ -40,7 +40,7 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           />
 
           <div
-            className="flex items-center gap-1 cursor-pointer"
+            className="flex items-center gap-1 cursor-pointer select-none"
             onClick={() => navigate("/")}
           >
             <img src="/youtube.png" className="w-8 h-8" />
