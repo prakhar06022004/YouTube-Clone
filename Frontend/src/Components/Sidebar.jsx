@@ -8,9 +8,11 @@ import { MdOutlinePlaylistPlay } from "react-icons/md";
 import { MdSaveAlt } from "react-icons/md";
 import { SlLike } from "react-icons/sl";
 import { IoIosArrowForward } from "react-icons/io";
+import { useNavigate } from "react-router";
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const [active, setActive] = useState("Home");
+  const navigate = useNavigate();
   return (
     <div
       className={`min-h-screen bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
@@ -18,36 +20,38 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
       }`}
     >
       <div
-        className={`md:w-50 transition-transform duration-300 ${
+        className={`md:w-50 transition-transform duration-300 py-5 flex flex-col gap-5 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div
-          className={`${showSidebar ? "translate-x-0" : "-translate-x-full"} transition-transform py-5 flex flex-col gap-5`}
+          className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Home" ? "bg-gray-700" : ""}`}
+          onClick={() => {
+            setActive("Home");
+            navigate("/");
+          }}
         >
-          <div
-            className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Home" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Home")}
-          >
-            <FaHome size={25} color="white" />
-            <p className={`text-white text-md hidden md:flex`}>Home</p>
-          </div>
+          <FaHome size={25} color="white" />
+          <p className={`text-white text-md hidden md:flex`}>Home</p>
+        </div>
 
-          <div
-            className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Shorts" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Shorts")}
-          >
-            <SiYoutubeshorts size={25} color="white" />
-            <p className="text-white text-md hidden md:flex">Shorts</p>
-          </div>
+        <div
+          className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Shorts" ? "bg-gray-700" : ""}`}
+          onClick={() => {
+            setActive("Shorts");
+            navigate("/shorts");
+          }}
+        >
+          <SiYoutubeshorts size={25} color="white" />
+          <p className="text-white text-md hidden md:flex">Shorts</p>
+        </div>
 
-          <div
-            className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Subscription" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Subscription")}
-          >
-            <MdOutlineSubscriptions size={25} color="white" />
-            <p className="text-white text-md hidden md:flex">Subscription</p>
-          </div>
+        <div
+          className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Subscription" ? "bg-gray-700" : ""}`}
+          onClick={() => setActive("Subscription")}
+        >
+          <MdOutlineSubscriptions size={25} color="white" />
+          <p className="text-white text-md hidden md:flex">Subscription</p>
         </div>
 
         <div className="flex flex-col gap-4 py-4">
