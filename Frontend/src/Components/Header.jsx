@@ -3,7 +3,6 @@ import { IoMenu, IoSearch } from "react-icons/io5";
 import { IoMdMic } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
-import HeaderButtons from "./HeaderButtons";
 import axios from "axios";
 import LogOut from "./LogOut";
 
@@ -49,7 +48,7 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
         </div>
 
         <div className="flex">
-          <div className="flex w-125 h-10 border border-gray-700 rounded-full overflow-hidden">
+          <div className="flex w-125 h-10 rounded-full overflow-hidden">
             <input
               type="search"
               placeholder="Search"
@@ -144,7 +143,7 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
             onClick={() => setActive(false)}
           />
 
-          <div className="flex flex-1 h-10 border border-gray-700 rounded-full overflow-hidden">
+          <div className="flex flex-1 h-10 rounded-full overflow-hidden">
             <input
               type="search"
               placeholder="Search"
@@ -157,7 +156,6 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           </div>
         </div>
       )}
-      <HeaderButtons />
       <LogOut
         showLogoutPopup={showLogoutPopup}
         userData={userData}

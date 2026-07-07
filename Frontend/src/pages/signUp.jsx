@@ -112,6 +112,7 @@ function Signup() {
       setLoading(false);
     }
   };
+  
   return (
     <div className="min-h-screen w-full flex items-start md:items-center justify-center md:p-4 ">
       {step === 1 && (
@@ -276,7 +277,7 @@ function Signup() {
             >
               Login
             </span>
-          </p>{" "}
+          </p>
         </div>
       )}
       {step === 2 && (

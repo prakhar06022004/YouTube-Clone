@@ -16,11 +16,11 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   return (
     <div
       className={`min-h-screen bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
-        showSidebar ? "md:w-50" : "w-0"
+        showSidebar ? "md:w-60" : "w-0"
       }`}
     >
       <div
-        className={`md:w-50 transition-transform duration-300 py-5 flex flex-col gap-5 ${
+        className={`md:w-60 transition-transform duration-300 flex flex-col gap-5 ${
           showSidebar ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -48,7 +48,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
         <div
           className={`flex gap-7 items-center py-1 px-2 w-full rounded hover:bg-gray-800 duration-150 pl-5 cursor-pointer ${active === "Subscription" ? "bg-gray-700" : ""}`}
-          onClick={() => setActive("Subscription")}
+          onClick={() => {
+            setActive("Subscription");
+            navigate("/subscription");
+          }}
         >
           <MdOutlineSubscriptions size={25} color="white" />
           <p className="text-white text-md hidden md:flex">Subscription</p>
