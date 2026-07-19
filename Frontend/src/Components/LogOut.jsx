@@ -3,22 +3,21 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { TbLogout } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../redux/userSlice";
 
-const LogOut = ({
-  setShowLogoutPopup,
-  showLogoutPopup,
-  userData,
-  setUserData,
-}) => {
+const LogOut = ({ setShowLogoutPopup, showLogoutPopup }) => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logOut = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/api/user/logout",
+        "http://localhost:8000/api/auth/logout",
         {},
         { withCredentials: true },
       );
-      setUserData(null);
+      dispatch(clearUser());
       setShowLogoutPopup(false);
       navigate("/");
     } catch (error) {
@@ -28,7 +27,7 @@ const LogOut = ({
 
   return (
     <>
-      {userData && showLogoutPopup && (
+      {currentUser && showLogoutPopup && (
         <div className="relative">
           <div className="flex justify-center px-2 py-5 bg-black text-white w-50 h-fit absolute right-0 top-0 z-99">
             <span className="absolute top-8 right-5 cursor-pointer">
@@ -38,13 +37,13 @@ const LogOut = ({
               {/* User info section */}
               <div className="flex flex-col items-center gap-2 py-5 px-4 border-b border-white/10">
                 <div className="w-14 h-14 rounded-full bg-linear-to-br from-red-500 to-red-700 flex items-center justify-center text-xl font-semibold">
-                  {userData?.username?.charAt(0)?.toUpperCase() || "U"}
+                  {currentUser?.username?.charAt(0)?.toUpperCase() || "U"}
                 </div>
                 <p className="text-sm font-medium text-center truncate w-full">
-                  {userData?.username || "User"}
+                  {currentUser?.username || "User"}
                 </p>
                 <p className="text-xs text-gray-400 text-center truncate w-full">
-                  {userData?.email || ""}
+                  {currentUser?.email || ""}
                 </p>
               </div>
 

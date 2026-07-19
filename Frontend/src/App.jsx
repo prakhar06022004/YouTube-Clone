@@ -6,7 +6,9 @@ import LogIn from "./pages/LogIn";
 import Layout from "./Components/Layout";
 import Shorts from "./pages/Shorts";
 import Subscription from "./pages/Subscription";
+import useGetCurrentUser from "./customHooks/getCurrentUser";
 const App = () => {
+  useGetCurrentUser();
   return (
     <>
       <Routes>

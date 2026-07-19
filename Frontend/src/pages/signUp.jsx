@@ -93,7 +93,7 @@ function Signup() {
       data.append("image", formData.image);
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:8000/api/user/signup",
+        "http://localhost:8000/api/auth/signup",
         data,
         { withCredentials: true },
       );

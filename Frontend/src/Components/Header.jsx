@@ -5,27 +5,14 @@ import { IoArrowBack } from "react-icons/io5";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import LogOut from "./LogOut";
+import { useSelector } from "react-redux";
 
 const Header = ({ setShowSidebar, setSearch, search }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const getMe = async () => {
-    try {
-      const res = await axios.get("http://localhost:8000/api/user/me", {
-        withCredentials: true,
-      });
-      console.log(res?.data);
-      setUserData(res?.data?.user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  useEffect(() => {
-    getMe();
-  }, []);
-
+  const currentUser = useSelector((state) => state.user.currentUser);
+    
   return (
     <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
       {/* Header */}
@@ -71,14 +58,14 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           className="flex items-center justify-center w-12 h-12 rounded-full bg-white cursor-pointer"
           onClick={() => setShowLogoutPopup((prev) => !prev)}
         >
-          {userData?.imageUrl ? (
+          {currentUser?.imageUrl ? (
             <img
-              src={userData?.imageUrl}
+              src={currentUser?.imageUrl}
               className="rounded-full object-cover"
             />
-          ) : userData?.username ? (
+          ) : currentUser?.username ? (
             <p className="text-black">
-              {userData?.username?.slice(0, 1).toUpperCase()}
+              {currentUser?.username?.slice(0, 1).toUpperCase()}
             </p>
           ) : (
             <img
@@ -118,11 +105,11 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
               className="w-11 h-11 rounded-full bg-white cursor-pointer"
               onClick={() => setShowLogoutPopup((prev) => !prev)}
             >
-              {userData?.imageUrl ? (
-                <img src={userData?.imageUrl} className="rounded-full" />
-              ) : userData?.username ? (
+              {currentUser?.imageUrl ? (
+                <img src={currentUser?.imageUrl} className="rounded-full" />
+              ) : currentUser?.username ? (
                 <p className="text-white rounded-full">
-                  {userData?.username.slice(0, 1)}
+                  {currentUser?.username.slice(0, 1)}
                 </p>
               ) : (
                 <img
@@ -158,8 +145,6 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
       )}
       <LogOut
         showLogoutPopup={showLogoutPopup}
-        userData={userData}
-        setUserData={setUserData}
         setShowLogoutPopup={setShowLogoutPopup}
       />
     </div>
