@@ -6,13 +6,14 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import LogOut from "./LogOut";
 import { useSelector } from "react-redux";
+import { ClipLoader } from "react-spinners";
 
 const Header = ({ setShowSidebar, setSearch, search }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
-    
+
   return (
     <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
       {/* Header */}
@@ -50,46 +51,47 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           </div>
 
           <div className="ml-3 h-10 w-10 rounded-full bg-[#222222] flex justify-center items-center">
-            <IoMdMic color="white" size={22} />
+            <IoMdMic color="white" size={22} className="" />
           </div>
         </div>
 
         <div
-          className="flex items-center justify-center w-12 h-12 rounded-full bg-white cursor-pointer"
+          className="flex items-center justify-center cursor-pointer w-12 h-12"
           onClick={() => setShowLogoutPopup((prev) => !prev)}
         >
           {currentUser?.imageUrl ? (
             <img
               src={currentUser?.imageUrl}
-              className="rounded-full object-cover"
+              className="w-12 h-12 rounded-full object-cover"
             />
           ) : currentUser?.username ? (
-            <p className="text-black">
-              {currentUser?.username?.slice(0, 1).toUpperCase()}
+            <p className="text-black font-semibold">
+              {currentUser.username[0].toUpperCase()}
             </p>
           ) : (
-            <img
-              src="/emptyImage.png"
-              alt="emptyImage"
-              className="rounded-full"
-            />
+            // <img
+            //   src="/emptyImage.png"
+            //   alt="emptyImage"
+            //   className="rounded-full"
+            // />
+            <ClipLoader color="white" size={20} />
           )}
         </div>
       </div>
 
       {/* Mobile header */}
       {!active ? (
-        <div className="md:hidden flex justify-between items-center p-4">
+        <div className="md:hidden flex justify-between items-center p-3">
           <div className="flex items-center gap-2">
             <IoMenu
               color="white"
-              size={28}
+              size={32}
               onClick={() => setShowSidebar((prev) => !prev)}
             />
 
             <img
               src="/youtube.png"
-              className="w-8 h-8 cursor-pointer"
+              className="w-10 h-10 cursor-pointer"
               onClick={() => navigate("/")}
             />
           </div>
@@ -97,26 +99,27 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           <div className="flex items-center gap-4">
             <IoSearch
               color="white"
-              size={24}
+              size={30}
               className="cursor-pointer"
               onClick={() => setActive(true)}
             />
             <div
-              className="w-11 h-11 rounded-full bg-white cursor-pointer"
+              className="relative w-14 h-14 flex items-center justify-center cursor-pointer"
               onClick={() => setShowLogoutPopup((prev) => !prev)}
             >
               {currentUser?.imageUrl ? (
-                <img src={currentUser?.imageUrl} className="rounded-full" />
-              ) : currentUser?.username ? (
-                <p className="text-white rounded-full">
-                  {currentUser?.username.slice(0, 1)}
-                </p>
-              ) : (
                 <img
-                  src="/emptyImage.png"
-                  alt="emptyImage"
-                  className="rounded-full"
+                  src={currentUser.imageUrl}
+                  className="w-12 h-12 rounded-full object-cover"
                 />
+              ) : currentUser?.username ? (
+                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
+                  <p className="text-black font-semibold">
+                    {currentUser.username[0].toUpperCase()}
+                  </p>
+                </div>
+              ) : (
+                <ClipLoader color="white" size={20} />
               )}
             </div>
           </div>
