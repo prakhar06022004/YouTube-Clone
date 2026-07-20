@@ -19,7 +19,8 @@ const LogOut = ({ setShowLogoutPopup, showLogoutPopup }) => {
       );
       dispatch(clearUser());
       setShowLogoutPopup(false);
-      navigate("/");
+        navigate("/");
+    
     } catch (error) {
       console.log(error.message);
     }

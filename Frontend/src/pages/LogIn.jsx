@@ -4,12 +4,16 @@ import { IoMdEyeOff } from "react-icons/io";
 import { FaYoutube } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setCurrentUser } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 const LogIn = () => {
   const [show, setShow] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -52,7 +56,7 @@ const LogIn = () => {
         },
         { withCredentials: true },
       );
-
+      dispatch(setCurrentUser(res.data?.loginUser));
       navigate("/");
 
       console.log(res?.data);

@@ -12,8 +12,11 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-  const currentUser = useSelector((state) => state.user.currentUser);
-
+  const { currentUser, loading } = useSelector((state) => state.user);
+  console.log({
+    loading,
+    currentUser,
+  });
   return (
     <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
       {/* Header */}
@@ -59,23 +62,20 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           className="flex items-center justify-center cursor-pointer w-12 h-12"
           onClick={() => setShowLogoutPopup((prev) => !prev)}
         >
-          {currentUser?.imageUrl ? (
+          {loading ? (
+            <ClipLoader color="white" size={20} />
+          ) : currentUser?.imageUrl ? (
             <img
-              src={currentUser?.imageUrl}
+              src={currentUser.imageUrl}
               className="w-12 h-12 rounded-full object-cover"
             />
           ) : currentUser?.username ? (
-            <p className="text-black font-semibold">
-              {currentUser.username[0].toUpperCase()}
-            </p>
-          ) : (
-            // <img
-            //   src="/emptyImage.png"
-            //   alt="emptyImage"
-            //   className="rounded-full"
-            // />
-            <ClipLoader color="white" size={20} />
-          )}
+            <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center border border-white">
+              <p className="text-white font-semibold">
+                {currentUser.username[0].toUpperCase()}
+              </p>
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -103,25 +103,29 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
               className="cursor-pointer"
               onClick={() => setActive(true)}
             />
-            <div
-              className="relative w-14 h-14 flex items-center justify-center cursor-pointer"
-              onClick={() => setShowLogoutPopup((prev) => !prev)}
-            >
-              {currentUser?.imageUrl ? (
-                <img
-                  src={currentUser.imageUrl}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-              ) : currentUser?.username ? (
-                <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center">
-                  <p className="text-black font-semibold">
-                    {currentUser.username[0].toUpperCase()}
-                  </p>
-                </div>
-              ) : (
-                <ClipLoader color="white" size={20} />
-              )}
-            </div>
+            {loading ? (
+              <ClipLoader color="white" size={20} />
+            ) : (
+              <div
+                className="relative w-14 h-14 flex items-center justify-center cursor-pointer"
+                onClick={() => setShowLogoutPopup((prev) => !prev)}
+              >
+                {currentUser?.imageUrl ? (
+                  <img
+                    src={currentUser.imageUrl}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                ) : currentUser?.username ? (
+                  <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center border border-white">
+                    <p className="text-white font-semibold">
+                      {currentUser.username[0].toUpperCase()}
+                    </p>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            )}
           </div>
         </div>
       ) : (
