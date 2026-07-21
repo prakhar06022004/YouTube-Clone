@@ -15,8 +15,8 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`min-h-screen bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
-        showSidebar ? "md:w-60" : "w-0"
+      className={`fixed top-20 md:static left-0 z-50 md:z-auto h-screen md:h-auto bg-black border-r border-b border-gray-800/40 overflow-hidden transition-all duration-300 ${
+        showSidebar ? "w-16 md:w-60" : "w-0 md:w-0"
       }`}
     >
       <div
@@ -29,6 +29,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           onClick={() => {
             setActive("Home");
             navigate("/");
+            setShowSidebar(false);
           }}
         >
           <FaHome size={25} color="white" />
@@ -40,6 +41,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           onClick={() => {
             setActive("Shorts");
             navigate("/shorts");
+            setShowSidebar(false);
           }}
         >
           <SiYoutubeshorts size={25} color="white" />
@@ -51,13 +53,14 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           onClick={() => {
             setActive("Subscription");
             navigate("/subscription");
+            setShowSidebar(false);
           }}
         >
           <MdOutlineSubscriptions size={25} color="white" />
           <p className="text-white text-md hidden md:flex">Subscription</p>
         </div>
 
-        <div className="flex flex-col gap-4 py-4">
+        <div className="flex flex-col md:gap-5 gap-7 py-4">
           <div className="flex items-center gap-1">
             <p className="text-white pl-5">You</p>
             <IoIosArrowForward color="white" size={17} />
@@ -65,7 +68,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
           <div
             className={`text-white flex items-center gap-7 pl-5 rounded hover:bg-gray-800 duration-150 cursor-pointer ${active === "History" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("History")}
+            onClick={() => {
+              setActive("History");
+              setShowSidebar(false);
+            }}
           >
             <RiHistoryFill size={25} />{" "}
             <p className="text-md px-2 py-1 hidden md:flex">History</p>
@@ -73,7 +79,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
           <div
             className={`text-white flex items-center gap-7 pl-5 rounded hover:bg-gray-800 duration-150 cursor-pointer ${active === "Playlists" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Playlists")}
+            onClick={() => {
+              setActive("Playlists");
+              setShowSidebar(false);
+            }}
           >
             <MdOutlinePlaylistPlay size={25} />
             <p className="text-md px-2 py-1 hidden md:flex">Playlists</p>
@@ -81,7 +90,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
           <div
             className={`text-white flex items-center gap-7 pl-5 rounded hover:bg-gray-800 duration-150 cursor-pointer ${active === "Save videos" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Save videos")}
+            onClick={() => {
+              setActive("Save videos");
+              setShowSidebar(false);
+            }}
           >
             <MdSaveAlt size={25} />{" "}
             <p className="text-md px-2 py-1 hidden md:flex">Save videos</p>
@@ -89,7 +101,10 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
           <div
             className={`text-white flex items-center gap-7 pl-5 rounded hover:bg-gray-800 duration-150 cursor-pointer ${active === "Liked videos" ? "bg-gray-700" : ""}`}
-            onClick={() => setActive("Liked videos")}
+            onClick={() => {
+              setActive("Liked videos");
+              setShowSidebar(false);
+            }}
           >
             <SlLike size={25} />{" "}
             <p className="text-md px-2 py-1 hidden md:flex">Liked videos</p>

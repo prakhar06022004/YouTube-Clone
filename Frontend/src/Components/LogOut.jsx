@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { TbLogout } from "react-icons/tb";
 import { RxCross2 } from "react-icons/rx";
+import { FcGoogle } from "react-icons/fc";
+import { MdPersonAddAlt, MdOutlineSwitchAccount } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../redux/userSlice";
 
@@ -19,8 +21,7 @@ const LogOut = ({ setShowLogoutPopup, showLogoutPopup }) => {
       );
       dispatch(clearUser());
       setShowLogoutPopup(false);
-        navigate("/");
-    
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
@@ -30,7 +31,7 @@ const LogOut = ({ setShowLogoutPopup, showLogoutPopup }) => {
     <>
       {currentUser && showLogoutPopup && (
         <div className="relative">
-          <div className="flex justify-center px-2 py-5 bg-black text-white w-50 h-fit absolute right-0 top-0 z-99">
+          <div className="flex justify-center px-2 pt-2 text-white w-55 md:w-70 h-fit absolute right-0 top-0 z-99">
             <span className="absolute top-8 right-5 cursor-pointer">
               <RxCross2 size={22} onClick={() => setShowLogoutPopup(false)} />
             </span>
@@ -46,15 +47,35 @@ const LogOut = ({ setShowLogoutPopup, showLogoutPopup }) => {
                 <p className="text-xs text-gray-400 text-center truncate w-full">
                   {currentUser?.email || ""}
                 </p>
+                <p className="text-xs text-blue-400 hover:underline cursor-pointer text-center w-full">
+                  create channel
+                </p>
+              </div>
+
+              {/* Account options section */}
+              <div className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-white/10 transition-colors duration-150">
+                <FcGoogle size={18} />
+                <p className="text-sm font-medium">
+                  Signin with google account
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-white/10 transition-colors duration-150">
+                <MdPersonAddAlt size={18} />
+                <p className="text-sm font-medium">Create new Account</p>
+              </div>
+
+              <div className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-white/10 transition-colors duration-150">
+                <MdOutlineSwitchAccount size={18} />
+                <p className="text-sm font-medium">Signin with other account</p>
               </div>
 
               {/* Logout button */}
               <div
                 onClick={logOut}
-                className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-white/10 transition-colors duration-150"
+                className="flex items-center gap-3 py-3 px-4 cursor-pointer hover:bg-white/10 transition-colors duration-150 border-t border-white/10"
               >
-                <TbLogout />
-
+                <TbLogout size={18} />
                 <p className="text-sm font-medium">Sign out</p>
               </div>
             </div>
