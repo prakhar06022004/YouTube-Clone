@@ -13,10 +13,10 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
   const navigate = useNavigate();
   const [showLogoutPopup, setShowLogoutPopup] = useState(false);
   const { currentUser, loading } = useSelector((state) => state.user);
-  console.log({
-    loading,
-    currentUser,
-  });
+  // console.log({
+  //   loading,
+  //   currentUser,
+  // });
   return (
     <div className="fixed top-0 w-full z-50 left-0 bg-black/70 backdrop-blur-md">
       {/* Header */}
@@ -75,7 +75,14 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
                 {currentUser.username[0].toUpperCase()}
               </p>
             </div>
-          ) : null}
+          ) : (
+            <div
+              className="mr-3 py-2 px-4 border border-white text-white rounded-3xl"
+              onClick={() => navigate("/login")}
+            >
+              SignIn
+            </div>
+          )}
         </div>
       </div>
 
@@ -99,8 +106,8 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
           <div className="flex items-center gap-4">
             <IoSearch
               color="white"
-              size={30}
-              className="cursor-pointer"
+              size={32}
+              className="cursor-pointer mr-3 "
               onClick={() => setActive(true)}
             />
             {loading ? (
@@ -122,7 +129,12 @@ const Header = ({ setShowSidebar, setSearch, search }) => {
                     </p>
                   </div>
                 ) : (
-                  ""
+                  <div
+                    className="mr-3 py-2 px-4 border border-white text-white rounded-3xl"
+                    onClick={() => navigate("/login")}
+                  >
+                    SignIn
+                  </div>
                 )}
               </div>
             )}

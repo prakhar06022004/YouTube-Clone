@@ -7,6 +7,8 @@ import { ClipLoader } from "react-spinners";
 import { useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../redux/userSlice";
 
 function Signup() {
   const [show, setShow] = useState(false);
@@ -22,6 +24,8 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [error, setError] = useState({
     username: "",
@@ -97,8 +101,9 @@ function Signup() {
         data,
         { withCredentials: true },
       );
+      dispatch(setCurrentUser(res.data?.user));
       navigate("/");
-      console.log(res?.data);
+      console.log(res?.data.user);
     } catch (error) {
       setStep(1);
       const { field, message } = error.response?.data;
@@ -112,14 +117,17 @@ function Signup() {
       setLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen w-full flex items-start md:items-center justify-center md:p-4 ">
       {step === 1 && (
         <div className="w-full max-w-130 bg-white shadow-[0_0_20px_rgba(0,0,0,0.1)]  rounded-2xl px-10 py-5">
           <div className="flex items-center justify-between">
             {/* Back Button */}
-            <button className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition">
+            <button
+              className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition cursor-pointer"
+              onClick={() => navigate("/")}
+            >
               <FaArrowLeft />
               <span className="text-lg">Back</span>
             </button>

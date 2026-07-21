@@ -59,7 +59,7 @@ const LogIn = () => {
       dispatch(setCurrentUser(res.data?.loginUser));
       navigate("/");
 
-      console.log(res?.data);
+      // console.log(res?.data);
     } catch (error) {
       const { field, message } = error.response?.data;
       setError((prev) => ({
@@ -78,8 +78,8 @@ const LogIn = () => {
         <div className="flex items-center justify-between">
           {/* Back Button */}
           <button
-            className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition"
-            onClick={() => navigate("/signup")}
+            className="flex items-center gap-3 border border-gray-300 px-6 py-3 rounded-xl hover:bg-gray-50 transition cursor-pointer"
+            onClick={() => navigate("/")}
           >
             <FaArrowLeft />
             <span className="text-lg">Back</span>
@@ -164,7 +164,15 @@ const LogIn = () => {
           >
             LogIn
           </button>
-        </form>
+        </form><p className="mt-4 text-center text-sm text-gray-600">
+  Don't have an account?{" "}
+  <span
+    onClick={() => navigate("/signup")}
+    className="cursor-pointer font-semibold text-red-600 hover:underline"
+  >
+    Sign Up
+  </span>
+</p>
       </div>
     </div>
   );
